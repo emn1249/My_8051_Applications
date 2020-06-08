@@ -1,0 +1,124 @@
+     1        FF30      M_BLOCK EQU 0FF30H		;block
+     2        FF38      M_SEGME EQU 0FF38H		;segment
+     3                  
+     4                  
+     5  0000: 02 01 00  	LJMP START
+     6  0100:           	ORG 100H
+     7                  
+     8  0100:           START:
+     9  0100: 78 01     	MOV R0,#00000001B	;seg_num
+    10  0102: 79 01     	MOV R1,#00000001B	;block_num
+    11  0104: 7A 03     	MOV R2,#00000011B	;counter
+    12                  	
+    13  0106: C2 96     	CLR P1.6
+    14  0108: D2 96     	SETB P1.6		
+    15                  
+    16  010A: 90 FF 30  	MOV DPTR,#M_BLOCK		
+    17  010D: E9        	MOV A, R1
+    18  010E: F0        	MOVX @DPTR,A			
+    19                  
+    20  010F: 90 FF 38  	MOV DPTR,#M_SEGME		
+    21  0112: E8        	MOV A, R0
+    22  0113: F0        	MOVX @DPTR,A			
+    23  0114: C2 96     	CLR P1.6
+    24  0116: 74 03     	MOV A,#3
+    25  0118: 12 81 12  	LCALL DELAY_100MS 
+    26  011B: D2 96     	SETB P1.6
+    27                  	
+    28  011D:           MOV_SEG1:
+    29                  
+    30  011D: 74 02     	MOV A,#00000010B
+    31  011F: 88 F0     	MOV B,R0
+    32  0121: A4        	MUL AB
+    33  0122: F8        	MOV R0, A
+    34                  
+    35                  	
+    36  0123: 90 FF 38  	MOV DPTR,#M_SEGME		
+    37  0126: E8        	MOV A, R0
+    38  0127: F0        	MOVX @DPTR,A			
+    39  0128: C2 96     	CLR P1.6
+    40  012A: 74 03     	MOV A,#3
+    41  012C: 12 81 12  	LCALL DELAY_100MS 
+    42  012F: D2 96     	SETB P1.6
+    43                  	
+    44  0131: 1A        	DEC R2
+    45  0132: EA        	MOV A, R2
+    46  0133: 70 E8     	JNZ MOV_SEG1
+    47  0135: 7A 05     	MOV R2,#00000101B
+    48                  	
+    49  0137:           MOV_BLOCK:
+    50                  
+    51  0137: 74 02     	MOV A,#00000010B
+    52  0139: 89 F0     	MOV B,R1
+    53  013B: A4        	MUL AB
+    54  013C: F9        	MOV R1, A
+    55                  
+    56                  	
+    57  013D: 90 FF 30  	MOV DPTR,#M_BLOCK		
+    58  0140: E9        	MOV A, R1
+    59  0141: F0        	MOVX @DPTR,A	
+    60                  	
+    61  0142: 90 FF 38  	MOV DPTR,#M_SEGME		
+    62  0145: E8        	MOV A, R0
+    63  0146: F0        	MOVX @DPTR,A			
+    64  0147: C2 96     	CLR P1.6
+    65                  	
+    66  0149: 74 03     	MOV A,#3
+    67  014B: 12 81 12  	LCALL DELAY_100MS 
+    68  014E: D2 96     	SETB P1.6
+    69                  	
+    70  0150: 1A        	DEC R2
+    71  0151: EA        	MOV A, R2
+    72  0152: 70 E3     	JNZ MOV_BLOCK
+    73  0154: 7A 02     	MOV R2,#00000010B
+    74                  	
+    75  0156:           MOV_SEG2:
+    76                  
+    77                  
+    78  0156: 74 02     	MOV A,#00000010B
+    79  0158: 88 F0     	MOV B,R0
+    80  015A: A4        	MUL AB
+    81  015B: F8        	MOV R0, A
+    82                  
+    83                  	
+    84  015C: 90 FF 38  	MOV DPTR,#M_SEGME		
+    85  015F: E8        	MOV A, R0
+    86  0160: F0        	MOVX @DPTR,A			
+    87  0161: C2 96     	CLR P1.6
+    88  0163: 74 03     	MOV A,#3
+    89  0165: 12 81 12  	LCALL DELAY_100MS 
+    90  0168: D2 96     	SETB P1.6
+    91                  	
+    92  016A: 1A        	DEC R2
+    93  016B: EA        	MOV A, R2
+    94  016C: 70 E8     	JNZ MOV_SEG2
+    95  016E: 7A 05     	MOV R2,#00000101B
+    96  0170: 78 01     	MOV R0,#00000001B
+    97                  	
+    98  0172:           MOV_BLOCK2:
+    99                  	
+   100                  	
+   101  0172: 90 FF 30  	MOV DPTR,#M_BLOCK		
+   102  0175: E9        	MOV A, R1
+   103  0176: F0        	MOVX @DPTR,A	
+   104                  	
+   105  0177: 90 FF 38  	MOV DPTR,#M_SEGME		
+   106  017A: E8        	MOV A, R0
+   107  017B: F0        	MOVX @DPTR,A			
+   108  017C: C2 96     	CLR P1.6
+   109                  	
+   110  017E: 74 01     	MOV A,#1
+   111  0180: 12 81 12  	LCALL DELAY_100MS 
+   112  0183: D2 96     	SETB P1.6
+   113                  
+   114  0185: 75 F0 02  	MOV B,#00000010B
+   115  0188: E9        	MOV A,R1
+   116  0189: 84        	DIV AB
+   117  018A: F9        	MOV R1, A
+   118                  
+   119  018B: 1A        	DEC R2
+   120  018C: EA        	MOV A, R2
+   121  018D: 70 E3     	JNZ MOV_BLOCK2
+   122  018F: 78 01     	MOV R0,#00000001B
+   123  0191: 79 01     	MOV R1,#00000001B
+   124  0193: 7A 03     	MOV R2,#00000011B

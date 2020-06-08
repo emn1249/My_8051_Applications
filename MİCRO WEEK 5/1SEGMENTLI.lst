@@ -1,0 +1,92 @@
+     1        0096      SEG_ON EQU P1.6
+     2        FF30      F_CSDS EQU 0FF30H
+     3        FF38      F_CSDB EQU 0FF38H
+     4                  
+     5        0001      DISPLAY1 EQU 00000001B
+     6        0002      DISPLAY2 EQU 00000010B
+     7                  
+     8  0000: 02 01 00  	LJMP START
+     9  0100:           	ORG 100H
+    10  0100:           START:
+    11  0100: 75 30 3F  	MOV 30H,#00111111B
+    12  0103: 75 31 06  	MOV 31H,#00000110B
+    13  0106: 75 32 5B  	MOV 32H,#01011011B
+    14  0109: 75 33 4F  	MOV 33H,#01001111B
+    15  010C: 75 34 66  	MOV 34H,#01100110B
+    16  010F: 75 35 6D  	MOV 35H,#01101101B
+    17  0112: 75 36 7D  	MOV 36H,#01111101B
+    18  0115: 75 37 07  	MOV 37H,#00000111B
+    19  0118: 75 38 7F  	MOV 38H,#01111111B
+    20  011B: 75 39 6F  	MOV 39H,#01101111B
+    21                  	
+    22  011E: 78 1E     	MOV R0,#30
+    23                  	
+    24  0120:           START2:
+    25  0120: 74 14     		MOV A,#20
+    26  0122: FB        		MOV R3,A
+    27  0123: 75 8C 4C  		MOV TH0,#76
+    28  0126: 75 8A 00  		MOV TL0,#0
+    29  0129: 75 89 01  		MOV TMOD,#00000001B
+    30  012C: D2 8C     		SETB TR0
+    31  012E: 79 30     		MOV R1,#30H
+    32  0130: 7A 0A     		MOV R2,#10
+    33  0132:           DONGU:	
+    34                  		
+    35  0132: 90 FF 30  		MOV DPTR,#F_CSDS
+    36  0135: 74 02     		MOV A,#DISPLAY2
+    37  0137: F0        		MOVX @DPTR,A
+    38  0138: 90 FF 38  		MOV DPTR,#F_CSDB
+    39  013B: E7        		MOV A,@R1
+    40  013C: F0        		MOVX @DPTR,A
+    41                  		
+    42                  		
+    43                  		
+    44  013D:           DONGU2:		
+    45  013D: 90 FF 30  		MOV DPTR,#F_CSDS
+    46  0140: 74 01     		MOV A,#DISPLAY1
+    47  0142: F0        		MOVX @DPTR,A
+    48  0143: 90 FF 38  		MOV DPTR,#F_CSDB
+    49  0146: E7        		MOV A,@R1
+    50  0147: F0        		MOVX @DPTR,A
+    51  0148: C2 96     		CLR SEG_ON
+    52  014A: 74 0A     		MOV A,#10
+    53  014C: 12 81 12  		LCALL DELAY_100MS
+    54  014F: D2 96     		SETB SEG_ON
+    55                  		
+    56  0151: 09        		INC R1
+    57  0152: 1A        		DEC R2
+    58                  		
+    59  0153: EA        		MOV A,R2
+    60                  		
+    61  0154: 70 E7     		JNZ DONGU2
+    62                  		
+    63  0156: C2 96     		CLR SEG_ON
+    64                  		
+    65  0158: D2 96     		SETB SEG_ON
+    66                  		
+    67  015A: 79 30     		MOV R1,#30H
+    68  015C: 7A 0A     		MOV R2,#10
+    69  015E: C2 8D     		CLR TF0
+    70  0160: 1B        		DEC R3
+    71  0161: 75 8C 4C  		MOV TH0,#76
+    72  0164: 75 8A 00  		MOV TL0,#0
+    73  0167: D2 8C     		SETB TR0
+    74  0169: EB        		MOV A,R3
+    75  016A: 70 C6     		JNZ DONGU
+    76                  		
+    77  016C: 09        		INC R1
+    78  016D: 1A        		DEC R2
+    79                  		
+    80  016E: EA        		MOV A,R2
+    81  016F: 70 C1     		JNZ DONGU
+    82  0171: D2 96     		SETB SEG_ON
+    83  0173: 08        		INC R0
+    84  0174: E8        		MOV A,R0
+    85  0175: 70 BB     		JNZ DONGU
+    86                  		
+    87  0177: 80 FE     		SJMP $
+    88  0179: 00        		NOP
+    89                  		
+    90                  		
+    91                  		
+    92                  	

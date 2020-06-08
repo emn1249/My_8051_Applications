@@ -1,0 +1,58 @@
+     1        0096      SEG_ON EQU P1.6
+     2        0055      KEY_COD EQU 01010101B
+     3                  
+     4        0000      T0_G EQU 0
+     5        0000      T0_C EQU 0
+     6        0000      T0_M EQU 0
+     7        0000      TIM0 EQU T0_M+T0_C*4+T0_G*8
+     8                  
+     9        0000      T1_G EQU 0
+    10        0001      T1_C EQU 1
+    11        0000      T1_M EQU 0
+    12        0004      TIM1 EQU T1_M+T1_C*4+T1_G*8
+    13                  
+    14        0040      TMOD_SET EQU TIM0+TIM1*16
+    15        0000      TL1_SET EQU 0
+    16                  
+    17                  
+    18  0000: 02 01 00  	LJMP START
+    19  0100:           	ORG 100H
+    20  0100:           START:
+    21  0100: 12 81 0C  	LCALL LCD_CLR
+    22                  	
+    23  0103: 7A 0A     	MOV R2,#10
+    24  0105: 75 89 6E  	MOV TMOD ,#0110_0000 ;8BIT TIMER
+    25  0108: 75 8B 00  	MOV TL1,#0
+    26  010B: D2 8E     	SETB TR1
+    27                  		
+    28  010D: 78 30     	MOV R0,#CSDS
+    29  010F: 74 55     	MOV A,#KEY_COD
+    30  0111: F2        	MOVX @R0,A
+    31                  	
+    32  0112: 78 38     	MOV R0,#CSDB
+    33  0114: 74 00     	MOV A,#0000_0001
+    34  0116: F2        	MOVX @R0,A
+    35                  	
+    36  0117: E5 8B     	MOV A,TL1
+    37  0119: 12 81 04  	LCALL WRITE_HEX
+    38  011C: E5 0A     	MOV A,10
+    39  011E: 12 81 12  	LCALL DELAY_100MS
+    40                  
+    41                  	
+    42  0121:           LOOP:
+    43  0121: E5 8B     	MOV A,TL1
+    44  0123: 12 81 04  	LCALL WRITE_HEX
+    45  0126: E5 01     	MOV A,1
+    46  0128: 12 81 12  	LCALL DELAY_100MS
+    47  012B: E5 8B     	MOV A,TL1
+    48  012D: B4 0A F1  	CJNE A,#10,LOOP
+    49                  
+    50                  	
+    51                  	
+    52                  
+    53                  	
+    54                  
+    55  0130: 02 01 00  	LJMP START
+    56  0133: 00        	NOP
+    57                  	
+    58                  	

@@ -1,0 +1,83 @@
+	org 0000h
+Home:
+	mov r0,#00h
+	mov a,r0
+	lcall TT
+	mov p2,a
+	mov r1,#00h
+	mov a,r1
+	lcall TT
+	mov p3,a 
+	lcall delay
+	SEC1:
+	inc r0
+	mov a,r0
+	cjne a,#01h,L1
+	mov r0,#00h
+	sjmp SEC2
+L1:
+	lcall TT
+	mov p2,a
+	lcall delay
+	sjmp SEC1
+SEC2:
+	inc r1
+	mov a,r1
+	cjne a,#0ah,L2
+	mov r1,#00h
+	sjmp Home
+L2:
+	lcall TT
+	mov p3,a
+	lcall delay
+	sjmp SEC2
+TT:
+	cjne a,#01h,M1
+	mov a,#0F9h;1
+	ret
+M1:
+	cjne a,#02h,M2
+	mov a,#0a4h;2
+ret
+M2:
+	cjne a,#03h,M3
+	mov a,#0b0h;3
+	ret
+M3:
+	cjne a,#04h,M4
+	mov a,#099h;4
+ret
+M4:
+	cjne a,#05h,M5
+	mov a,#012h;5
+	ret
+M5:
+	cjne a,#06h,M6
+	mov a,#082h;6
+	ret
+M6:
+	cjne a,#07h,M7
+	mov a,#0f8h;7
+	ret
+M7:
+	cjne a,#08h,M8
+	mov a,#080h;8
+	ret
+M8:
+	cjne a,#09h,M9
+	mov a,#090h;9
+	ret
+M9:
+	cjne a,#00h,M1
+	mov a,#0c0h;0
+	ret
+M10:
+delay: 
+	mov r2,#04h
+	mov r3,#080h
+	mov r4,#0ffh
+	djnz r4,$
+	djnz r3,$-2
+	djnz r2,$-4
+	ret
+	end

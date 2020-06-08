@@ -1,0 +1,99 @@
+     1        0096      SEG_ON EQU P1.6	
+     2        0030      F_CSDS EQU 30H
+     3        0038      F_CSDB EQU 38H	
+     4                  	
+     5  0000: 02 00 64  	LJMP START
+     6  0064:           	ORG 100
+     7                  	
+     8  0064:           START:
+     9                  
+    10  0064: 78 30     	MOV R0,#30H
+    11  0066: 74 20     	MOV A,#00100000B
+    12  0068: F2        	MOVX @R0,A
+    13  0069: 78 38     	MOV R0,#38H
+    14  006B: 74 79     	MOV A,#01111001B
+    15  006D: F2        	MOVX @R0,A
+    16                  	
+    17  006E: C2 96     	CLR SEG_ON
+    18  0070: 74 0A     	MOV A,#10
+    19  0072: 12 81 10  	LCALL DELAY_MS
+    20  0075: D2 96     	SETB SEG_ON
+    21                  	
+    22                  	
+    23                  	
+    24  0077: 78 30     	MOV R0,#30H
+    25  0079: 74 10     	MOV A,#00010000B
+    26  007B: F2        	MOVX @R0,A
+    27                  	
+    28  007C: 78 38     	MOV R0,#38H
+    29  007E: 74 06     	MOV A,#00000110B
+    30  0080: F2        	MOVX @R0,A
+    31                  	
+    32                  	
+    33                  		
+    34  0081: C2 96     	CLR SEG_ON
+    35  0083: 74 0A     	MOV A,#10
+    36  0085: 12 81 10  	LCALL DELAY_MS
+    37  0088: D2 96     	SETB SEG_ON
+    38                  	
+    39  008A: 78 30     	MOV	R0,#F_CSDS
+    40  008C: 74 08     	MOV A,#00001000B
+    41  008E: F2        	MOVX @R0,A
+    42  008F: 78 38     	MOV	R0,#F_CSDB
+    43  0091: 74 3D     	MOV A,#00111101B
+    44  0093: F2        	MOVX @R0,A
+    45                  	
+    46                  	
+    47  0094: C2 96     	CLR	SEG_ON
+    48  0096: 74 0A     	MOV A,#10
+    49  0098: 12 81 10  	LCALL DELAY_MS
+    50  009B: D2 96     	SETB SEG_ON
+    51                  	
+    52  009D: 78 30     	MOV	R0,#F_CSDS
+    53  009F: 74 04     	MOV A,#00000100B
+    54  00A1: F2        	MOVX @R0,A
+    55  00A2: 78 38     	MOV	R0,#F_CSDB
+    56  00A4: 74 74     	MOV A,#01110100B
+    57  00A6: F2        	MOVX @R0,A
+    58                  	
+    59                  	
+    60  00A7: C2 96     	CLR	SEG_ON
+    61  00A9: 74 0A     	MOV A,#10
+    62  00AB: 12 81 10  	LCALL DELAY_MS
+    63  00AE: D2 96     	SETB SEG_ON
+    64                  	
+    65  00B0: 78 30     	MOV	R0,#F_CSDS
+    66  00B2: 74 02     	MOV A,#00000010B
+    67  00B4: F2        	MOVX @R0,A
+    68  00B5: 78 38     	MOV	R0,#F_CSDB
+    69  00B7: 74 F7     	MOV A,#11110111B
+    70  00B9: F2        	MOVX @R0,A
+    71                  	
+    72                  	
+    73  00BA: C2 96     	CLR	SEG_ON
+    74  00BC: 74 0A     	MOV A,#10
+    75  00BE: 12 81 10  	LCALL DELAY_MS
+    76  00C1: D2 96     	SETB SEG_ON
+    77                  	
+    78  00C3: 78 30     	MOV	R0,#F_CSDS
+    79  00C5: 74 01     	MOV A,#00000001B
+    80  00C7: F2        	MOVX @R0,A
+    81  00C8: 78 38     	MOV	R0,#F_CSDB
+    82  00CA: 74 57     	MOV A,#01010111B
+    83  00CC: F2        	MOVX @R0,A
+    84                  	
+    85                  	
+    86  00CD: C2 96     	CLR	SEG_ON
+    87  00CF: 74 0A     	MOV A,#10
+    88  00D1: 12 81 10  	LCALL DELAY_MS
+    89  00D4: D2 96     	SETB SEG_ON
+    90                  	
+    91                  	
+    92  00D6: 02 00 64  	LJMP START
+    93  00D9: 80 FE     	SJMP $
+    94                  
+    95                  
+    96                  
+    97                  	
+    98                  	
+    99                  	

@@ -1,0 +1,54 @@
+     1        0096      SEG_ON EQU P1.6
+     2        0055      KEY_COD EQU 01010101B
+     3                  
+     4        0000      T0_G EQU 0
+     5        0000      T0_C EQU 0
+     6        0000      T0_M EQU 0
+     7        0000      TIM0 EQU T0_M+T0_C*4+T0_G*8
+     8                  
+     9        0000      T1_G EQU 0
+    10        0001      T1_C EQU 1
+    11        0000      T1_M EQU 0
+    12        0004      TIM1 EQU T1_M+T1_C*4+T1_G*8
+    13                  
+    14        0040      TMOD_SET EQU TIM0+TIM1*16
+    15        0000      TL1_SET EQU 0
+    16                  
+    17                  
+    18  0000: 02 01 00  	LJMP START
+    19  0100:           	ORG 100H
+    20  0100:           START:
+    21  0100: B2 97     	CPL P1.7 
+    22  0102: 74 0A     	MOV A,#10
+    23  0104: 12 81 12  	LCALL DELAY_100MS
+    24  0107: 7A 0A     	MOV R2,#10
+    25  0109: 75 89 40  	MOV TMOD ,#TMOD_SET ;8BIT TIMER
+    26  010C: 75 8B 00  	MOV TL1,#TL1_SET
+    27  010F: D2 8E     	SETB TR1
+    28                  		
+    29  0111: 78 30     	MOV R0,#CSDS
+    30  0113: 74 55     	MOV A,#KEY_COD
+    31  0115: F2        	MOVX @R0,A
+    32                  	
+    33  0116: 78 38     	MOV R0,#CSDB
+    34  0118: C2 96     	CLR SEG_ON
+    35                  	
+    36  011A:           LOOP:
+    37  011A: E5 8B     	MOV A,TL1
+    38  011C: 1A        	DEC R2
+    39  011D: EA        	MOV A,R2
+    40                  
+    41  011E: F2        	MOVX @R0,A
+    42  011F: 1A        	DEC R2
+    43  0120: EA        	MOV A,R2
+    44  0121: 70 F7     	JNZ LOOP
+    45                  
+    46                  	
+    47                  	
+    48                  
+    49                  	
+    50                  
+    51  0123: 02 01 00  	LJMP START
+    52  0126: 00        	NOP
+    53                  	
+    54                  	

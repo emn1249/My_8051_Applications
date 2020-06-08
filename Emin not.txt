@@ -1,0 +1,65 @@
+bilgiii
+
+
+timer ?
+fc=11.0592 mhz
+
+fmachine=fc/12
+
+machinecycle  		Tm=1/fm=12/11.0592   us1.085
+
+timer1  		timer0
+TH1 THL1		TH0 TL0
+	TF10			TF0
+mode																	initial avalue
+0			[0001]--<biryanagecer---[11111]    8192 2uzeri13			8192-100		
+1	       2register [FF][FF]   65536 2uzeri 16							65536-100
+2			only lower part 'is counting  []---->[FF] 256 2uzeri8		TH <---156
+3			its running all the time
+
+
+
+
+
+
+1)TMOD  8  bit T1 son4 T0 ilk4 gate counter m1 m0
+
+MOV TMOD,#00000010b
+
+2)
+MOV TH0,#....
+MOV TL0,#....
+
+3)
+for start timer
+
+TCON 
+SETB TR0	
+
+4)
+JB  TF0
+JNB TF0
+
+
+50000 us*11.0592MHz/12=46080=180*256
+TH0			TL0
+256-180=76	
+
+
+1.task
+implement 1 dakikalik saat 7 segment displayda gorulecek
+2.task
+ok tuslari keyword T1 ile detected kac tane basildigini gosterecek
+
+10 defa basinca led yanacak flag tasiyacak
+
+tekra 10 defa bsinca led sonecek 
+ 
+
+
+
+
+	
+
+
+
